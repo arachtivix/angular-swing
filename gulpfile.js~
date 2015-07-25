@@ -53,8 +53,15 @@ gulp.task('version', ['bundle'], function () {
     jsonfile.writeFileSync('./bower.json', bower);
 });
 
+gulp.task('gitdown', function () {
+    return GitDown
+        .read('.gitdown/README.md')
+        .write('README.md');
+});
+
 gulp.task('watch', function () {
     gulp.watch(['./src/*', './package.json'], ['default']);
+    gulp.watch(['./.gitdown/*'], ['gitdown']);
 });
 
 gulp.task('test', ['default'], function (cb) {
